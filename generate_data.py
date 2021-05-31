@@ -1,6 +1,7 @@
 import csv
 import json
 import math
+
 def get_data_from_csv_file(filename):
     data_list = []
     fd = open(filename, 'rt')
@@ -16,11 +17,11 @@ def get_hours_from_sec(data_list):
     listlen = len(data_list)
     
     for i in range(1, len(data_list)):
-        data_list[i][3] = (int(data_list[i][2]))/(60*60)
-        data_list[i][5] = (int(data_list[i][4]))/(60*60)
-        data_list[i][6] = (int(data_list[i][2])) - (int(data_list[i][4]))
-        data_list[i][7] = (int(data_list[i][3]) - int(data_list[i][5]))
-        data_list[i][8] = (int(data_list[i][4])/int(data_list[i][2])) * 100
+        data_list[i][3] = math.ceil((int(data_list[i][2]))/(60*60))
+        data_list[i][5] = math.ceil((int(data_list[i][4]))/(60*60))
+        data_list[i][6] = math.ceil((int(data_list[i][2])) - (int(data_list[i][4])))
+        data_list[i][7] = math.ceil((int(data_list[i][3]) - int(data_list[i][5])))
+        data_list[i][8] = math.ceil((int(data_list[i][4])/int(data_list[i][2])) * 100)
     
     return(data_list)
 
