@@ -1,6 +1,6 @@
 import csv
 import json
-
+import math
 def get_data_from_csv_file(filename):
     data_list = []
     fd = open(filename, 'rt')
@@ -8,10 +8,6 @@ def get_data_from_csv_file(filename):
     
     for row in fdata:
         data_list.append(row)
-        row2 = row[2]
-        row3 = row[3]
-        print(row2, row3)
-    
 
     fd.close()
     return data_list
@@ -25,12 +21,7 @@ def get_hours_from_sec(data_list):
         data_list[i][6] = (int(data_list[i][2])) - (int(data_list[i][4]))
         data_list[i][7] = (int(data_list[i][3]) - int(data_list[i][5]))
         data_list[i][8] = (int(data_list[i][4])/int(data_list[i][2])) * 100
-        '''     
-        if (data_list[i][3] == "0"):
-            hrs = (int(data_list[i][2]))/(60*60)
-            hr = str(hrs)
-            print(hr)
-        '''
+    
     return(data_list)
 
 
@@ -40,11 +31,16 @@ def main():
     print(data_list)
     dlist = get_hours_from_sec(data_list)
     print("dlist:",dlist)
+    glist = []
+    for r in dlist:
+        list = ('{},{},{},{},{},{},{},{},{}'.format(r[0],r[1],r[2], r[3], r[4], r[5], r[6], r[7], r[8]))
+        glist.append(list)
+    print(glist)
 
     with open("guser-data.csv", "w") as csv_file:
 
         gd = csv.writer(csv_file, delimiter = '\t')
-        for line in dlist:
+        for line in glist:
             gd.writerow(line)
 
 
