@@ -190,6 +190,23 @@ def open_file_by_name(filename):
 
     fd.close()
     return data_list
+	
+def get_sort_sprint(data):
+    
+
+    for i in range(1, len(data)):
+        s1 = data[i][s1_pos]
+        s2 = data[i][s2_pos]
+        s3 = data[i][s3_pos]
+
+        t = [s1, s2, s3]
+        t.sort(reverse = True)
+        data[i][s1_pos] = s1
+        data[i][s2_pos] = s2
+        data[i][s3_pos] = s3
+    
+    return data
+
 
 def get_colnames_with_pos(data):
     
@@ -287,7 +304,8 @@ sso_npos = get_story_schedule_overrun_npos()
 def main():
     filename = "gdata.csv"
     datalines = open_file_by_name(filename)
-    processed_file = get_colnames_with_pos(datalines)
+    sorted_file = get_sort_sprint(datalines)
+    processed_file = get_colnames_with_pos(sorted_file)
     print(processed_file)
 
 	
