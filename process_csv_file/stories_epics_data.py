@@ -201,9 +201,9 @@ def get_sort_sprint(data):
 
         t = [s1, s2, s3]
         t.sort(reverse = True)
-        data[i][s1_pos] = s1
-        data[i][s2_pos] = s2
-        data[i][s3_pos] = s3
+        data[i][s1_pos] = t[0]
+        data[i][s2_pos] = t[1]
+        data[i][s3_pos] = t[2]
     
     return data
 
