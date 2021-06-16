@@ -235,62 +235,7 @@ def get_colnames_with_pos(wbname, src_wname, dst_wname):
         dwsheet[i][ssp_npos].value = swsheet[i][ssp_pos-1].value
         dwsheet[i][sso_npos].value = swsheet[i][sso_pos-1].value
         dwsheet[i][r_npos].value = swsheet[i][r_pos-1].value
-    '''
-    for row in swsheet.iter_rows():
-        if(row[2].value != None):
-            frow = [cell.value for cell in row]
-            dwsheet.append(frow)
     
-    for i in range(2, srcount+1):
-        s1 = swsheet[i][s1_pos].value
-        s2 = swsheet[i][s2_pos].value
-        s3 = swsheet[i][s3_pos].value
-
-        t = [s1, s2, s3]
-        t.sort(reverse = True)
-        
-        
-        dwsheet[i][s1_pos].value = t[0]
-        dwsheet[i][s2_pos].value = t[1]
-        dwsheet[i][s3_pos].value = t[2]
-    dwsheet[1][cfl_pos].value = ei_col
-    dwsheet[1][ik_pos].value = si_col
-    dwsheet[1][s1_pos].value = sprint_id_col
-    dwsheet[1][s_pos].value = sd_col
-    dwsheet[1][a_pos].value = at_col
-    dwsheet[1][cfp_pos].value = esp_col
-    dwsheet[1][es_pos].value = sps_col
-    dwsheet[1][et_pos].value = spe_col
-    dwsheet[1][sh_pos].value = ee_in_hrs_col
-    dwsheet[1][oe_pos].value = ts_in_sec_col
-    dwsheet[1][oh_pos].value = ec_in_hrs_col
-    dwsheet[1][rh_pos].value = pe_in_hrs_col
-    dwsheet[1][eas_pos].value = sas_col
-    dwsheet[1][eae_pos].value = sae_col
-    dwsheet[1][p_pos].value = sec_col
-    dwsheet.insert_cols(ssp_npos)
-    dwsheet.insert_cols(sso_npos)
-    print(ssp_npos)
-    print(dwsheet[1][21].value)
-    dwsheet[1][ssp_npos-1].value = ssp_col
-    dwsheet[1][sso_npos-1].value = sso_col
-    for j in range (2, srcount+1):
-        
-        dwsheet[j][ssp_npos-1].value = "100%"
-        dwsheet[j][sso_npos-1].value = "0%"
-    
-    for j in range(0, 24):
-        print(j, dwsheet[1][j].value)
-
-    for i in range(1, srcount+1):
-        list = [dwsheet[i][sno_pos].value,dwsheet[i][cfl_pos].value, dwsheet[i][s1_pos].value, dwsheet[i][ik_pos].value, dwsheet[i][s_pos+2].value, dwsheet[i][a_pos].value, dwsheet[i][cfp_pos].value, dwsheet[i][es_pos].value, 
-                dwsheet[i][et_pos].value, dwsheet[i][oh_pos].value, dwsheet[i][oe_pos].value, dwsheet[i][oh_pos].value, dwsheet[i][rh_pos].value, dwsheet[i][eas_pos].value,
-                dwsheet[i][eae_pos].value, dwsheet[i][p_pos].value, dwsheet[i][ssp_npos].value, dwsheet[i][sso_npos].value]
-        worksheet.append(list)
-    
-    
-    	
-    '''
     wb.save(wbname)		
 		
     

@@ -163,19 +163,7 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
     drcount = dwsheet.max_row
     dccount = dwsheet.max_column
 
-    '''
-    if (drcount <= 1):
-        row = swsheet2[1]
-        frow = [cell.value for cell in row]
-        dwsheet.append(frow)
 
-    for row in dwsheet.iter_rows():
-        for cell in row:
-            
-            print(cell.value, ' ', end = " ")
-        print("")
-
-    '''
     for row in swsheet2.iter_rows():
         if(row[2].value != None):
             frow = [cell.value for cell in row]
@@ -211,20 +199,7 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
                 dwsheet[j][6].value = swsheet1[i][5].value
                 dwsheet[j][7].value = swsheet1[i][6].value
  
-    """	
-    for i in range(2, srcount+1):
-        s1 = swsheet[i][s1_pos].value
-        s2 = swsheet[i][s2_pos].value
-        s3 = swsheet[i][s3_pos].value
 
-        t = [s1, s2, s3]
-        t.sort(reverse = True)
-        
-        
-        dwsheet[i][s1_pos].value = t[0]
-        dwsheet[i][s2_pos].value = t[1]
-        dwsheet[i][s3_pos].value = t[2]
-    """
     dwsheet[1][cfl_pos].value = ei_col
     dwsheet[1][ik_pos].value = si_col
     dwsheet[1][s1_pos].value = sprint_id_col
@@ -250,10 +225,7 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
         
         dwsheet[j][ssp_pos-1].value = "100%"
         dwsheet[j][sso_pos-1].value = "0%"
-    '''
-    for j in range(0, 24):
-        print(j, dwsheet[1][j].value)
-    '''            
+         
                 
 
 
