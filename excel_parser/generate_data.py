@@ -181,25 +181,25 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
             frow = [cell.value for cell in row]
             dwsheet.append(frow)
     
-    dwsheet.insert_cols(5)
-    dwsheet.insert_cols(6)
-    dwsheet.insert_cols(7)
-    dwsheet.insert_cols(8)
-    dwsheet.insert_cols(11)
-    dwsheet.insert_cols(14)
-    dwsheet.insert_cols(16)
-    dwsheet.insert_cols(18)
+    dwsheet.insert_cols(es_pos)
+    dwsheet.insert_cols(et_pos)
+    dwsheet.insert_cols(eas_pos)
+    dwsheet.insert_cols(eae_pos)
+    dwsheet.insert_cols(p_pos+1)
+    dwsheet.insert_cols(oh_pos+1)
+    dwsheet.insert_cols(sh_pos+1)
+    dwsheet.insert_cols(rh_pos+1)
 	
-    dwsheet[1][10].value = "progress"
-    dwsheet[1][13].value = "originalhours"
-    dwsheet[1][15].value = "spenthours"
-    dwsheet[1][17].value = "remaininghours"
+    dwsheet[1][p_pos].value = "progress"
+    dwsheet[1][oh_pos].value = "originalhours"
+    dwsheet[1][sh_pos].value = "spenthours"
+    dwsheet[1][rh_pos].value = "remaininghours"
     
     for i in range(2,srcount2+1):
-        dwsheet[i][13].value = round(int(dwsheet[i][12].value)/3600)
-        dwsheet[i][15].value = round(int(dwsheet[i][14].value)/3600)
-        dwsheet[i][17].value = round(int(dwsheet[i][16].value)/3600)
-        dwsheet[i][10].value = round(int(dwsheet[i][15].value)/int(dwsheet[i][13].value)*100)
+        dwsheet[i][oh_pos].value = round(int(dwsheet[i][12].value)/3600)
+        dwsheet[i][sh_pos].value = round(int(dwsheet[i][14].value)/3600)
+        dwsheet[i][rh_pos].value = round(int(dwsheet[i][16].value)/3600)
+        dwsheet[i][p_pos].value = round(int(dwsheet[i][15].value)/int(dwsheet[i][13].value)*100)
 
     for i in range(1, srcount1+1):
         print(swsheet1[i][1].value)
@@ -231,14 +231,14 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
     dwsheet[1][s_pos].value = sd_col
     dwsheet[1][a_pos].value = at_col
     dwsheet[1][cfp_pos].value = esp_col
-    dwsheet[1][es_pos].value = sps_col
-    dwsheet[1][et_pos].value = spe_col
+    dwsheet[1][es_pos-1].value = sps_col
+    dwsheet[1][et_pos-1].value = spe_col
     dwsheet[1][sh_pos].value = ee_in_hrs_col
     dwsheet[1][oe_pos].value = ts_in_sec_col
     dwsheet[1][oh_pos].value = ec_in_hrs_col
     dwsheet[1][rh_pos].value = pe_in_hrs_col
-    dwsheet[1][eas_pos].value = sas_col
-    dwsheet[1][eae_pos].value = sae_col
+    dwsheet[1][eas_pos-1].value = sas_col
+    dwsheet[1][eae_pos-1].value = sae_col
     dwsheet[1][p_pos].value = sec_col
     dwsheet.insert_cols(ssp_pos)
     dwsheet.insert_cols(sso_pos)

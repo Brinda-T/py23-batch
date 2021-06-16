@@ -212,6 +212,7 @@ def get_colnames_with_pos(wbname, src_wname, dst_wname):
     drcount = dwsheet.max_row
     dccount = dwsheet.max_column
     
+    print(swsheet[1][et_pos-1].value)
     dwsheet.insert_cols(1,19)
     for i in range(1, srcount+1):
         print(swsheet[i][cfl_pos].value)
@@ -222,14 +223,14 @@ def get_colnames_with_pos(wbname, src_wname, dst_wname):
         dwsheet[i][sd_npos].value = swsheet[i][s_pos+3].value
         dwsheet[i][at_npos].value = swsheet[i][a_pos].value
         dwsheet[i][esp_npos].value = swsheet[i][cfp_pos].value
-        dwsheet[i][sps_npos].value = swsheet[i][es_pos].value
-        dwsheet[i][sae_npos].value = swsheet[i][et_pos].value
+        dwsheet[i][sps_npos].value = swsheet[i][es_pos-1].value
+        dwsheet[i][spe_npos].value = swsheet[i][et_pos-1].value
         dwsheet[i][ee_in_hrs_npos].value = swsheet[i][oh_pos].value
         dwsheet[i][ts_in_sec_npos].value = swsheet[i][oe_pos].value
         dwsheet[i][ec_in_hrs_npos].value = swsheet[i][oh_pos].value
         dwsheet[i][pe_in_hrs_npos].value = swsheet[i][rh_pos].value
-        dwsheet[i][sas_npos].value = swsheet[i][eas_pos].value
-        dwsheet[i][sae_npos].value = swsheet[i][eae_pos].value
+        dwsheet[i][sas_npos].value = swsheet[i][eas_pos-1].value
+        dwsheet[i][sae_npos].value = swsheet[i][eae_pos-1].value
         dwsheet[i][sec_npos].value = swsheet[i][p_pos].value
         dwsheet[i][ssp_npos].value = swsheet[i][ssp_pos-1].value
         dwsheet[i][sso_npos].value = swsheet[i][sso_pos-1].value
