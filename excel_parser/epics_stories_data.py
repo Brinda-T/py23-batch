@@ -191,53 +191,7 @@ def get_remarks_npos():
     return story_to_columns["remarks"]["gen_pos"]["npos"]
 	
 
-def get_colnames_with_pos(wbname, src_wname, dst_wname):
 
-    worksheet = []
-    wb = load_workbook(wbname)    
-    swsheet = wb.get_sheet_by_name(src_wname)
-    try:
-        dwsheet = wb.get_sheet_by_name(dst_wname)
-        print("Worksheet '%s' found" %(dst_wname))
-
-        print("Removing worksheet: '%s'" %(dst_wname))
-        wb.remove_sheet(dst_wname)
-    except:
-        print("Worksheet '%s' not found" %(dst_wname))
-        dwsheet = wb.create_sheet(dst_wname)
-
-    srcount = swsheet.max_row
-    sccount = swsheet.max_column
-
-    drcount = dwsheet.max_row
-    dccount = dwsheet.max_column
-    
-    print(swsheet[1][et_pos-1].value)
-    dwsheet.insert_cols(1,19)
-    for i in range(1, srcount+1):
-        print(swsheet[i][cfl_pos].value)
-        dwsheet[i][sno_pos].value = swsheet[i][sno_pos].value
-        dwsheet[i][ei_npos].value = swsheet[i][cfl_pos].value
-        dwsheet[i][sprint_id_npos].value = swsheet[i][s1_pos].value
-        dwsheet[i][si_npos].value = swsheet[i][ik_pos].value
-        dwsheet[i][sd_npos].value = swsheet[i][s_pos+3].value
-        dwsheet[i][at_npos].value = swsheet[i][a_pos].value
-        dwsheet[i][esp_npos].value = swsheet[i][cfp_pos].value
-        dwsheet[i][sps_npos].value = swsheet[i][es_pos-1].value
-        dwsheet[i][spe_npos].value = swsheet[i][et_pos-1].value
-        dwsheet[i][ee_in_hrs_npos].value = swsheet[i][oh_pos].value
-        dwsheet[i][ts_in_sec_npos].value = swsheet[i][oe_pos].value
-        dwsheet[i][ec_in_hrs_npos].value = swsheet[i][oh_pos].value
-        dwsheet[i][pe_in_hrs_npos].value = swsheet[i][rh_pos].value
-        dwsheet[i][sas_npos].value = swsheet[i][eas_pos-1].value
-        dwsheet[i][sae_npos].value = swsheet[i][eae_pos-1].value
-        dwsheet[i][sec_npos].value = swsheet[i][p_pos].value
-        dwsheet[i][ssp_npos].value = swsheet[i][ssp_pos-1].value
-        dwsheet[i][sso_npos].value = swsheet[i][sso_pos-1].value
-        dwsheet[i][r_npos].value = swsheet[i][r_pos-1].value
-    
-    wb.save(wbname)		
-		
     
 sno_pos = get_s_no_pos()
 ik_pos =get_issue_key_pos()
@@ -301,11 +255,3 @@ r_pos = get_remarks_pos()
 r_col = get_remarks_col()
 r_npos = get_remarks_npos()
 
-def main():
-    wbook = "generate-files.xlsx"
-    src_wsheet ="epic_stories"
-    dst_wsheet = "gen_sheet"
-    get_colnames_with_pos(wbook, src_wsheet, dst_wsheet)
-
-if (__name__ == "__main__"):
-    main()
