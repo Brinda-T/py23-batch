@@ -6,16 +6,8 @@ get_custom_field_link_pos,
 get_ename_pos,
 get_assignee_pos,
 get_orig_esti_pos, 
-get_progress_pos,
 get_custom_field_points_pos,
-get_spenthours_pos,
 get_rem_esti_pos,
-get_esdate_pos,
-get_etdate_pos,
-get_easdate_pos, 
-get_eaedate_pos, 
-get_originalhours_pos,
-get_remaininghours_pos,
 get_time_spent_pos,
 get_sprint_pos,
 get_sprint2_pos,
@@ -58,13 +50,10 @@ get_story_actual_end_col,
 get_story_actual_end_npos,
 get_story_effort_comp_col,
 get_story_effort_comp_npos,
-get_story_schedule_progress_pos,
 get_story_schedule_progress_col,
 get_story_schedule_progress_npos,
-get_story_schedule_overrun_pos,
 get_story_schedule_overrun_col,
 get_story_schedule_overrun_npos,
-get_remarks_pos,
 get_remarks_col,
 get_remarks_npos,
 
@@ -76,16 +65,8 @@ cfl_pos = get_custom_field_link_pos()
 en_pos = get_ename_pos()
 a_pos = get_assignee_pos()
 oe_pos = get_orig_esti_pos() 
-p_pos = get_progress_pos()
 cfp_pos = get_custom_field_points_pos()
-sh_pos = get_spenthours_pos()
 re_pos = get_rem_esti_pos()
-es_pos = get_esdate_pos()
-et_pos = get_etdate_pos()
-eas_pos = get_easdate_pos() 
-eae_pos = get_eaedate_pos()
-oh_pos = get_originalhours_pos()
-rh_pos = get_remaininghours_pos()
 ts_pos = get_time_spent_pos()
 s1_pos = get_sprint_pos()
 s2_pos = get_sprint2_pos()
@@ -128,13 +109,10 @@ sae_col = get_story_actual_end_col()
 sae_npos = get_story_actual_end_npos()
 sec_col = get_story_effort_comp_col()
 sec_npos = get_story_effort_comp_npos()
-ssp_pos = get_story_schedule_progress_pos()
 ssp_col = get_story_schedule_progress_col()
 ssp_npos = get_story_schedule_progress_npos()
-sso_pos = get_story_schedule_overrun_pos()
 sso_col = get_story_schedule_overrun_col()
 sso_npos = get_story_schedule_overrun_npos()
-r_pos = get_remarks_pos()
 r_col = get_remarks_col()
 r_npos = get_remarks_npos()
 def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname): 
@@ -174,7 +152,7 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
     dwsheet[1][esp_npos].value = esp_col
     dwsheet[1][sps_npos].value = sps_col
     dwsheet[1][spe_npos].value = spe_col
-    dwsheet[1][ec_in_hrs_npos].value = ec_in_hrs_col
+    dwsheet[1][ee_in_hrs_npos].value = ee_in_hrs_col
     dwsheet[1][ts_in_sec_npos].value = ts_in_sec_col
     dwsheet[1][ec_in_hrs_npos].value = ec_in_hrs_col
     dwsheet[1][pe_in_hrs_npos].value = pe_in_hrs_col
@@ -184,26 +162,31 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
     dwsheet[1][ssp_npos].value = ssp_col
     dwsheet[1][sso_npos].value = sso_col
     dwsheet[1][r_npos].value = r_col
-
     for i in range(drcount+1, srcount2 + 1):
         dwsheet[i][sno_pos].value = swsheet2[i][sno_pos].value
         dwsheet[i][ei_npos].value = swsheet2[i][cfl_pos].value
-        dwsheet[i][sprint_id_npos].value = swsheet2[i][10].value
         dwsheet[i][si_npos].value = swsheet2[i][ik_pos].value
-        dwsheet[i][sd_npos].value = swsheet2[i][13].value
-        dwsheet[i][at_npos].value = swsheet2[i][5].value
-        dwsheet[i][esp_npos].value = swsheet2[i][6].value
-        dwsheet[i][ee_in_hrs_npos].value = round(int(swsheet2[i][8].value) / 3600)
-        dwsheet[i][ts_in_sec_npos].value = swsheet2[i][7].value
-        dwsheet[i][ec_in_hrs_npos].value = round(int(dwsheet[i][ts_in_sec_npos].value)/3600)
-        dwsheet[i][pe_in_hrs_npos].value = round(int(dwsheet[i][ec_in_hrs_npos].value) - int(dwsheet[i][ee_in_hrs_npos].value))
-        dwsheet[i][sec_npos].value = (round(int(dwsheet[i][pe_in_hrs_npos].value)/int(dwsheet[i][ec_in_hrs_npos].value)) * 100)  
+        dwsheet[i][sd_npos].value = swsheet2[i][s_pos].value
+        dwsheet[i][at_npos].value = swsheet2[i][a_pos].value
+        dwsheet[i][esp_npos].value = swsheet2[i][cfp_pos].value
+        dwsheet[i][ee_in_hrs_npos].value = round(int(swsheet2[i][oe_pos].value) / 3600)
+        dwsheet[i][ts_in_sec_npos].value = swsheet2[i][ts_pos].value
+        dwsheet[i][ec_in_hrs_npos].value = round(int(swsheet2[i][re_pos].value)/3600)
+        dwsheet[i][pe_in_hrs_npos].value = round(int(dwsheet[i][ee_in_hrs_npos].value) - int(dwsheet[i][ec_in_hrs_npos].value))
+        #dwsheet[i][sec_npos].value = (round(int(dwsheet[i][ec_in_hrs_npos].value)/int(dwsheet[i][ee_in_hrs_npos].value)) * 100)  
+        dwsheet[i][sec_npos].value = round(int(dwsheet[i][ec_in_hrs_npos].value)/ int(dwsheet[i][ee_in_hrs_npos].value)*100)
         dwsheet[i][ssp_npos].value = "100%"
         dwsheet[i][sso_npos].value = "0%"
         
+        s1 = swsheet2[i][s1_pos].value
+        s2 = swsheet2[i][s2_pos].value
+        s3 = swsheet2[i][s3_pos].value
+        sprint = [s1, s2, s3]
+        sprint = list(filter(None, sprint))
+        sprint.sort(reverse = True) 
+        dwsheet[i][sprint_id_npos].value = sprint[0]
     for j in range(drcount+1, srcount1+1):
         for i in range(drcount+1, srcount2+1):
-            #print(j)
             
             if (swsheet2[i][cfl_pos].value == swsheet1[j][epic_cfl].value):
 
@@ -211,7 +194,6 @@ def append_rows_by_name(wbook, dst_wname, src1_wname, src2_wname):
                 dwsheet[i][spe_npos].value = swsheet1[j][epic_et_pos].value
                 dwsheet[i][sas_npos].value = swsheet1[j][epic_eas_pos].value
                 dwsheet[i][sae_npos].value = swsheet1[j][epic_eae_pos].value
-
     wb.save(wbook)
 
 
