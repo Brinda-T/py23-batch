@@ -1,6 +1,7 @@
 import csv
 from openpyxl import Workbook
 from openpyxl import load_workbook
+from openpyxl.styles import PatternFill, colors, Font, Fill
 
 from epics_stories_data import( get_issue_key_pos,
 get_issue_id_pos,
@@ -137,8 +138,8 @@ def create_workbook(wbook):
         wb = Workbook()
 
     wb.save(wbook)
-        
-def get_epics_stories_data(edata, sdata, wbook, wsheet):
+
+def create_worksheet(wbook, wsheet):
     wb = load_workbook(wbook)
     try:
         dwsheet = wb.get_sheet_by_name(wsheet)
@@ -152,9 +153,13 @@ def get_epics_stories_data(edata, sdata, wbook, wsheet):
         print("Creating worksheet '%s'" %(wsheet))
         dwsheet = wb.create_sheet(wsheet)
 
+    wb.save(wbook)
+def get_col_names(sdata, wbook, wsheet):
+    wb = load_workbook(wbook)
+    dwsheet = wb.get_sheet_by_name(wsheet)
+    
     dwsheet.insert_cols(1,19)
-    e = len(edata)
-    s = len(sdata)
+
     dwsheet[1][sno_pos].value = sdata[0][sno_pos]
     dwsheet[1][ei_npos].value = ei_col
     dwsheet[1][sprint_id_npos].value = sprint_id_col
@@ -174,7 +179,13 @@ def get_epics_stories_data(edata, sdata, wbook, wsheet):
     dwsheet[1][ssp_npos].value = ssp_col
     dwsheet[1][sso_npos].value = sso_col
     dwsheet[1][r_npos].value = r_col
-	
+
+    wb.save(wbook)
+def get_values_for_col(wbook, wsheet, sdata, edata):
+    wb = load_workbook(wbook)
+    dwsheet = wb.get_sheet_by_name(wsheet)
+    e = len(edata)
+    s = len(sdata)
     for i in range(1, s):
         j = i + 1
         dwsheet[j][sno_pos].value = sdata[i][sno_pos]
@@ -210,14 +221,33 @@ def get_epics_stories_data(edata, sdata, wbook, wsheet):
     wb.save(wbook)
 
 
+def get_cell_colors_using_patternfill(wbook, wsheet):
+    wb = load_workbook(wbook)
+    dwsheet = wb.get_sheet_by_name(wsheet)
+
+    rcount = dwsheet.max_row
+    ccount = dwsheet.max_column
+    #print(dir(PatternFill))
+    
+    fill_pattern = PatternFill(patternType = 'solid', fgColor = 'CCCCFF')
+    for i in range(1, ccount):
+        dwsheet[1][i].fill = fill_pattern
+    #dwsheet['A1'].fill = fill_pattern
+
+    wb.save(wbook)
+
+
 def main():
     epics = "01-epics.csv"
     stories = "02-stories.csv"
     wbook = "generated-file.xlsx"
     create_workbook(wbook)
     wsheet = "epics_stories"
+    worksheet = create_worksheet(wbook, wsheet)
     epics_data = get_file_by_name(epics)
     stories_data = get_file_by_name(stories)
-    es_data = get_epics_stories_data(epics_data, stories_data, wbook, wsheet)
+    col_names = get_col_names(stories_data, wbook, wsheet)
+    values = get_values_for_col(wbook, wsheet, stories_data, epics_data)
+    fill_pattern = get_cell_colors_using_patternfill(wbook, wsheet)
 if (__name__ == "__main__"):
     main()
