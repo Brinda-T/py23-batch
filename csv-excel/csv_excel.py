@@ -1,7 +1,7 @@
 import csv
 from openpyxl import Workbook
 from openpyxl import load_workbook
-from openpyxl.styles import PatternFill, colors, Font, Fill
+from openpyxl.styles import PatternFill, colors, Alignment
 
 from epics_stories_data import( get_issue_key_pos,
 get_issue_id_pos,
@@ -227,16 +227,53 @@ def get_cell_colors_using_patternfill(wbook, wsheet):
 
     rcount = dwsheet.max_row
     ccount = dwsheet.max_column
+    
     #print(dir(PatternFill))
     
     fill_pattern = PatternFill(patternType = 'solid', fgColor = 'CCCCFF')
-    for i in range(1, ccount):
+    for i in range(0, ccount):
         dwsheet[1][i].fill = fill_pattern
-    #dwsheet['A1'].fill = fill_pattern
+    
+    
+    wb.save(wbook)
+
+
+    
+
+
+def text_alignment(wbook,wsheet):
+    wb = load_workbook(wbook)
+    dwsheet = wb.get_sheet_by_name(wsheet)
+
+    rcount = dwsheet.max_row
+    ccount = dwsheet.max_column
+
+
+    text_align_column = Alignment(horizontal = "center", vertical = "center", wrapText = True)
+    text_align_row = Alignment(horizontal = "center", vertical = "center")
+    
+    for i in range(2, rcount+1):
+        for j in range(0, ccount):
+            dwsheet[1][j].alignment = text_align_column
+            dwsheet[i][j].alignment = text_align_row
 
     wb.save(wbook)
 
 
+def get_heading(wbook,wsheet):
+    wb = load_workbook(wbook)
+    dwsheet = wb.get_sheet_by_name(wsheet)
+    
+    min = dwsheet.min_column
+    max = dwsheet.max_column
+    dwsheet.insert_rows(1)
+    dwsheet['A1'].value = "SPRINT/STORY BOARD"
+    dwsheet.merge_cells('A1:S1')
+    dwsheet['A1'].alignment = Alignment(horizontal = "center", vertical = "center") 
+    
+    fill_pattern = PatternFill(patternType = 'solid', fgColor = 'FFFF00')
+    dwsheet['A1'].fill = fill_pattern
+    wb.save(wbook)
 def main():
     epics = "01-epics.csv"
     stories = "02-stories.csv"
@@ -248,6 +285,8 @@ def main():
     stories_data = get_file_by_name(stories)
     col_names = get_col_names(stories_data, wbook, wsheet)
     values = get_values_for_col(wbook, wsheet, stories_data, epics_data)
+    align = text_alignment(wbook,wsheet)
     fill_pattern = get_cell_colors_using_patternfill(wbook, wsheet)
+    heading = get_heading(wbook,wsheet)
 if (__name__ == "__main__"):
     main()
