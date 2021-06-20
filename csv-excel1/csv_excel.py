@@ -198,8 +198,12 @@ def get_values_for_col(wbook, wsheet, sdata, edata):
         
         dwsheet[j][ts_in_sec_npos].value = sdata[i][ts_pos]
         dwsheet[j][ec_in_hrs_npos].value = (int(dwsheet[j][ts_in_sec_npos].value)/3600)
+        #dwsheet['L2'].value = "=K3/3600"
+
         dwsheet[j][pe_in_hrs_npos].value = (int(dwsheet[j][ee_in_hrs_npos].value) - int(dwsheet[j][ec_in_hrs_npos].value))
+        dwsheet['M2'].value = "=J3-L3"
         dwsheet[j][sec_npos].value = round(int(dwsheet[j][ee_in_hrs_npos].value)/ int(dwsheet[j][ec_in_hrs_npos].value)*100)
+        dwsheet['P2'].value = "=J3/L3*100"
         dwsheet[j][ssp_npos].value = "100%"
         dwsheet[j][sso_npos].value = "0%"
         
@@ -210,7 +214,6 @@ def get_values_for_col(wbook, wsheet, sdata, edata):
         sprint = list(filter(None, sprint))
         sprint.sort(reverse = True) 
         dwsheet[j][sprint_id_npos].value = sprint[0]
-        print(class(sdata[1][1].value))
         for j in range(1, e):
             for i in range(1, s):
             
@@ -238,9 +241,6 @@ def get_cell_colors_using_patternfill(wbook, wsheet):
     
     
     wb.save(wbook)
-
-
-    
 
 
 def text_alignment(wbook,wsheet):
@@ -279,7 +279,7 @@ def get_heading(wbook,wsheet):
 def main():
     epics = "01-epics.csv"
     stories = "02-stories.csv"
-    wbook = "generated-file.xlsx"
+    wbook = "employee-details.xlsx"
     create_workbook(wbook)
     wsheet = "epics_stories"
     worksheet = create_worksheet(wbook, wsheet)
